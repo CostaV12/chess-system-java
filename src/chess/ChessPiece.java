@@ -44,4 +44,16 @@ public abstract class ChessPiece extends Piece {
         }
         return false;
     }
+
+    protected boolean canMove(Position position) {
+        ChessPiece p = (ChessPiece) getBoard().piece(position);
+        return p == null || p.getColor() != getColor();
+    }
+
+    protected boolean setTrueInMatPossibleMoves(boolean[][] mat, Position position) {
+        if (getBoard().positionExists(position) && canMove(position)) {
+            mat[position.getRow()][position.getColumn()] = true;
+        }
+        return false;
+    }
 }
