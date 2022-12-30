@@ -5,15 +5,10 @@ import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
-public class Rook extends ChessPiece {
+public class Bishop extends ChessPiece {
 
-    public Rook(Board board, Color color) {
+    public Bishop(Board board, Color color) {
         super(board, color);
-    }
-
-    @Override
-    public String toString() {
-        return "R";
     }
 
     @Override
@@ -22,38 +17,43 @@ public class Rook extends ChessPiece {
 
         Position p = new Position(0, 0);
 
-        //above
-        p.setValues(position.getRow() - 1, position.getColumn());
+        //nw
+        p.setValues(position.getRow() - 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
-            p.setRow(p.getRow() - 1);
+            p.setValues(p.getRow() - 1, p.getColumn() - 1);
         }
         verifyIfNextPositionIsAOpponent(mat, p);
 
-        //below
-        p.setValues(position.getRow() + 1, position.getColumn());
+        //ne
+        p.setValues(position.getRow() - 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
-            p.setRow(p.getRow() + 1);
+            p.setValues(p.getRow() - 1, p.getColumn() + 1);
         }
         verifyIfNextPositionIsAOpponent(mat, p);
 
-        //left
-        p.setValues(position.getRow(), position.getColumn() - 1);
+        //sw
+        p.setValues(position.getRow() + 1, position.getColumn() - 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
-            p.setColumn(p.getColumn() - 1);
+            p.setValues(p.getRow() + 1, p.getColumn() - 1);
         }
         verifyIfNextPositionIsAOpponent(mat, p);
 
-        //right
-        p.setValues(position.getRow(), position.getColumn() + 1);
+        //se
+        p.setValues(position.getRow() + 1, position.getColumn() + 1);
         while (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
             mat[p.getRow()][p.getColumn()] = true;
-            p.setColumn(p.getColumn() + 1);
+            p.setValues(p.getRow() + 1, p.getColumn() + 1);
         }
         verifyIfNextPositionIsAOpponent(mat, p);
 
         return mat;
+    }
+
+    @Override
+    public String toString() {
+        return "B";
     }
 }

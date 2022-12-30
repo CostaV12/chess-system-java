@@ -37,4 +37,11 @@ public abstract class ChessPiece extends Piece {
         ChessPiece p = (ChessPiece) getBoard().piece(position);
         return p != null && p.getColor() != color;
     }
+
+    protected boolean verifyIfNextPositionIsAOpponent(boolean[][] mat, Position position) {
+        if (getBoard().positionExists(position) && isThereOpponentPiece(position)) {
+            mat[position.getRow()][position.getColumn()] = true;
+        }
+        return false;
+    }
 }
