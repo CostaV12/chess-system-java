@@ -16,6 +16,13 @@ public class Rook extends ChessPiece {
         return "R";
     }
 
+    private boolean verifyIfNextPositionIsAOpponent(boolean[][] mat, Position position) {
+        if (getBoard().positionExists(position) && isThereOpponentPiece(position)) {
+            mat[position.getRow()][position.getColumn()] = true;
+        }
+        return false;
+    }
+
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
@@ -28,9 +35,7 @@ public class Rook extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() - 1);
         }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-            mat[p.getRow()][p.getColumn()] = true;
-        }
+        verifyIfNextPositionIsAOpponent(mat, p);
 
         //below
         p.setValues(position.getRow() + 1, position.getColumn());
@@ -38,9 +43,7 @@ public class Rook extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() + 1);
         }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-            mat[p.getRow()][p.getColumn()] = true;
-        }
+        verifyIfNextPositionIsAOpponent(mat, p);
 
         //left
         p.setValues(position.getRow(), position.getColumn() - 1);
@@ -48,9 +51,7 @@ public class Rook extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() - 1);
         }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-            mat[p.getRow()][p.getColumn()] = true;
-        }
+        verifyIfNextPositionIsAOpponent(mat, p);
 
         //right
         p.setValues(position.getRow(), position.getColumn() + 1);
@@ -58,9 +59,7 @@ public class Rook extends ChessPiece {
             mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() + 1);
         }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
-            mat[p.getRow()][p.getColumn()] = true;
-        }
+        verifyIfNextPositionIsAOpponent(mat, p);
 
         return mat;
     }
